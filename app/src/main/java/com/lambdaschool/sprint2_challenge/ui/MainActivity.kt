@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView
 import com.lambdaschool.sprint2_challenge.R
 import com.lambdaschool.sprint2_challenge.ShoppingListAdapter
 import com.lambdaschool.sprint2_challenge.model.ItemsList
-import com.lambdaschool.sprint2_challenge.model.ShoppingItemConstants
 import com.lambdaschool.sprint2_challenge.model.ShoppingItemConstants.ICON_IDS
 import com.lambdaschool.sprint2_challenge.model.ShoppingItemConstants.ITEM_NAMES_RAW
 import com.lambdaschool.sprint2_challenge.model.Values.Companion.myShoppingList
@@ -23,11 +22,11 @@ class MainActivity : AppCompatActivity() {
             myShoppingList.add(ItemsList(ICON_IDS[i], ITEM_NAMES_RAW[i]))
         }
 
-//        list_view.setHasFixedSize(true)
+        list_view.setHasFixedSize(true)
         val manager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val adapter = ShoppingListAdapter(myShoppingList)
-//       list_view.layoutManager = manager
-//        list_view.adapter = adapter
+        list_view.layoutManager = manager
+        list_view.adapter = adapter
 
 
     }

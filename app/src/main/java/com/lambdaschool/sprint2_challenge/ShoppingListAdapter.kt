@@ -13,6 +13,7 @@ import android.widget.Switch
 import android.widget.TextView
 import com.lambdaschool.sprint2_challenge.model.ItemsList
 import com.lambdaschool.sprint2_challenge.model.Values
+import com.lambdaschool.sprint2_challenge.model.Values.Companion.shoppingListStrings
 import kotlinx.android.synthetic.main.shopping_item_layout.view.*
 
 class ShoppingListAdapter(private val data: MutableList<ItemsList>) : RecyclerView.Adapter<ShoppingListAdapter.ViewHolder>(){
@@ -31,6 +32,19 @@ class ShoppingListAdapter(private val data: MutableList<ItemsList>) : RecyclerVi
         holder.cardView.setOnClickListener {
             Values.isChecked = !Values.isChecked
             cardviewSwitch.isChecked = Values.isChecked
+
+            if (Values.isChecked){
+                shoppingListStrings.add(holder.itemName.text.toString())
+            }else{
+                var index = 0
+                for (i in 0..shoppingListStrings.size){
+                    if (shoppingListStrings[i].equals(holder.itemName.text.toString())){
+                        index = i
+                    }
+
+                }
+                shoppingListStrings.removeAt(index)
+            }
         }
 //        holder.cardView.setOnClickListener {
 //            val sendIntent: Intent = Intent().apply {
