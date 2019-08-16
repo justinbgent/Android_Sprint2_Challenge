@@ -24,32 +24,30 @@ class ShoppingListAdapter(private val data: MutableList<ItemsList>) : RecyclerVi
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         val cardviewSwitch = Switch(holder.cardView.context)
-        if (cardviewSwitch.isChecked){
-            shoppingListStrings.add(holder.itemName.text.toString())
-        }else{
-            for (i in 0..shoppingListStrings.size-1)
-                if (shoppingListStrings[i] == holder.itemName.text.toString()){
-                shoppingListStrings.removeAt(i)
-            }
-        }
 
         holder.itemName.text = data[position].item
         holder.iconView.setImageDrawable(ContextCompat.getDrawable(holder.iconView.context, data[position].icon))
-//        holder.cardView.setOnClickListener {
-//            val sendIntent: Intent = Intent().apply {
-//                action = Intent.ACTION_SEND
-//                putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
-//                type = "text/plain"
-//            }
-//            startActivity(sendIntent)
-//        }
+
+        cardviewSwitch.isChecked = false
+        holder.cardView.setOnClickListener {
+            cardviewSwitch.isChecked = !cardviewSwitch.isChecked
+            if (cardviewSwitch.isChecked){
+                shoppingListStrings.add(data[position].item)
+                holder.cardView.setCardBackgroundColor(ContextCompat.getColor(holder.cardView.context, R.color.colorPrimary))
+            }else{
+                for (i in 0 until shoppingListStrings.size)
+                    if (shoppingListStrings[i] == data[position].item){
+                        shoppingListStrings.removeAt(i)
+                    }
+                holder.cardView.setCardBackgroundColor(ContextCompat.getColor(holder.cardView.context, R.color.cardview_light_background))
+            }
+        }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val itemName: TextView = view.item_name
         val iconView: ImageView = view.icon_view
-        val cardView: CardView = view.card_view
+        var cardView: CardView = view.card_view
     }
 }

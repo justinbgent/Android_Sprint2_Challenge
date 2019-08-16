@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        for(i in 0..ICON_IDS.size-1){
+        for(i in 0 until ICON_IDS.size){
             myShoppingList.add(ItemsList(ICON_IDS[i], ITEM_NAMES_RAW[i]))
         }
 
