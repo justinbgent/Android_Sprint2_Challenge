@@ -1,4 +1,4 @@
-package com.lambdaschool.sprint2_challenge
+package com.example.android_sprint2_challenge
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +9,8 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.android_sprint2_challenge.R
-import com.lambdaschool.sprint2_challenge.model.ItemsList
-import com.lambdaschool.sprint2_challenge.model.Values
-import com.lambdaschool.sprint2_challenge.model.Values.Companion.shoppingListStrings
+import com.example.android_sprint2_challenge.model.ItemsList
+import com.example.android_sprint2_challenge.model.Values.Companion.shoppingListStrings
 import kotlinx.android.synthetic.main.shopping_item_layout.view.*
 
 class ShoppingListAdapter(private val data: MutableList<ItemsList>) : RecyclerView.Adapter<ShoppingListAdapter.ViewHolder>(){
@@ -28,23 +26,17 @@ class ShoppingListAdapter(private val data: MutableList<ItemsList>) : RecyclerVi
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val cardviewSwitch = Switch(holder.cardView.context)
-        holder.cardView.setOnClickListener {
-            Values.isChecked = !Values.isChecked
-            cardviewSwitch.isChecked = Values.isChecked
-
-            if (Values.isChecked){
-                shoppingListStrings.add(holder.itemName.text.toString())
-            }else{
-                var index = 0
-                for (i in 0..shoppingListStrings.size){
-                    if (shoppingListStrings[i].equals(holder.itemName.text.toString())){
-                        index = i
-                    }
-
-                }
-                shoppingListStrings.removeAt(index)
+        if (cardviewSwitch.isChecked){
+            shoppingListStrings.add(holder.itemName.text.toString())
+        }else{
+            for (i in 0..shoppingListStrings.size-1)
+                if (shoppingListStrings[i] == holder.itemName.text.toString()){
+                shoppingListStrings.removeAt(i)
             }
         }
+
+        holder.itemName.text = data[position].item
+        holder.iconView.setImageDrawable(ContextCompat.getDrawable(holder.iconView.context, data[position].icon))
 //        holder.cardView.setOnClickListener {
 //            val sendIntent: Intent = Intent().apply {
 //                action = Intent.ACTION_SEND
@@ -53,9 +45,6 @@ class ShoppingListAdapter(private val data: MutableList<ItemsList>) : RecyclerVi
 //            }
 //            startActivity(sendIntent)
 //        }
-
-        holder.itemName.text = data[position].item
-        holder.iconView.setImageDrawable(ContextCompat.getDrawable(holder.iconView.context, data[position].icon))
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){

@@ -1,10 +1,10 @@
 package com.lambdaschool.sprint2_challenge.ui
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import com.lambdaschool.sprint2_challenge.R
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.android_sprint2_challenge.R
 import com.lambdaschool.sprint2_challenge.ShoppingListAdapter
 import com.lambdaschool.sprint2_challenge.model.ItemsList
 import com.lambdaschool.sprint2_challenge.model.ShoppingItemConstants.ICON_IDS

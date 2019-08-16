@@ -1,5 +1,4 @@
-package com.lambdaschool.sprint2_challenge.model;
-
+package com.example.android_sprint2_challenge.model;
 
 import com.example.android_sprint2_challenge.R;
 
