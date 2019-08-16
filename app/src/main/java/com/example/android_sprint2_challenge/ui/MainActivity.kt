@@ -16,7 +16,6 @@ import com.example.android_sprint2_challenge.model.ItemsList
 import com.example.android_sprint2_challenge.model.ShoppingItemConstants.ICON_IDS
 import com.example.android_sprint2_challenge.model.ShoppingItemConstants.ITEM_NAMES_RAW
 import com.example.android_sprint2_challenge.model.Values.Companion.myShoppingList
-import com.example.android_sprint2_challenge.model.Values.Companion.shoppingListStrings
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -26,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         for(i in 0 until ICON_IDS.size){
-            myShoppingList.add(ItemsList(ICON_IDS[i], ITEM_NAMES_RAW[i]))
+            myShoppingList.add(ItemsList(ICON_IDS[i], ITEM_NAMES_RAW[i], false))
         }
 
         list_view.setHasFixedSize(true)
@@ -39,9 +38,18 @@ class MainActivity : AppCompatActivity() {
         val channelID = "Basic Notification"
 
         btn_send.setOnClickListener {
+            var shoppingList = "Shopping Items: "
+
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, shoppingListStrings.toString())
+
+
+                for(i in 0 until myShoppingList.size){
+                    if (myShoppingList[i].share){
+                        shoppingList += "${myShoppingList[i].item}, "
+                    }
+                }
+                putExtra(Intent.EXTRA_TEXT, shoppingList)
                 type = "text/plain"
             }
             startActivity(sendIntent)
@@ -57,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             val notifBuilder = NotificationCompat.Builder(this, channelID)
                 .setPriority(NotificationManager.IMPORTANCE_HIGH)
                 .setContentTitle("List Shared")
-                .setContentText(shoppingListStrings.toString())
+                .setContentText(shoppingList)
                 .setSmallIcon(R.drawable.ic_launcher_foreground_arrow)
                 .setAutoCancel(true)
             notifManager.notify(1, notifBuilder.build())
